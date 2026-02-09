@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JobVision - Fake Job Detector</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <h1>🎯 JobVision</h1>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#results">Results</a></li>
+                <li><a href="#about">About</a></li>
+                <li id="nav-signin" style="display: block;"><a href="#signin" class="signin-btn">Sign In</a></li>
+                <li id="nav-profile" style="display: none;" class="profile-menu">
+                    <span id="user-name" class="user-greeting"></span>
+                    <button id="logout-btn" class="logout-btn">Logout</button>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Main Container -->
+    <div class="container">
+        <!-- Landing Section -->
+        <section id="home" class="landing-section">
+            <div class="landing-content">
+                <h1 class="main-title">Detect Fake Job Postings in Seconds</h1>
+                <p class="subtitle">Powered by Advanced Machine Learning & NLP</p>
+                
+                <div class="input-section">
+                    <label for="job-description">Paste Job Description:</label>
+                    <textarea 
+                        id="job-description" 
+                        class="job-input" 
+                        placeholder="Paste the complete job posting here. Include title, description, requirements, and benefits for better analysis..."
+                        rows="8"
+                        aria-label="Job description input"
+                    ></textarea>
+                    
+                    <button id="predict-btn" class="predict-button" aria-label="Analyze the job posting">
+                        🔍 Predict Job Reality
+                    </button>
+                    <p style="font-size: 0.85rem; color: #94a3b8; margin-top: 0.5rem; text-align: center;">
+                        💡 Tip: Press <kbd>Ctrl+Enter</kbd> for quick analysis
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Results Section (Hidden by default) -->
+        <section id="results" class="results-section hidden">
+            <div class="results-container">
+                
+                <!-- Prediction Card -->
+                <div class="result-card">
+                    <div class="prediction-header">
+                        <h2>Prediction Result</h2>
+                    </div>
+                    
+                    <div class="prediction-content">
+                        <!-- Status Badge -->
+                        <div class="status-badge" id="status-badge">
+                            <span id="prediction-label">REAL</span>
+                        </div>
+
+                        <!-- Confidence Ring -->
+                        <div class="confidence-ring-container">
+                            <svg class="confidence-ring" viewBox="0 0 120 120">
+                                <circle class="confidence-bg" cx="60" cy="60" r="50"></circle>
+                                <circle class="confidence-fill" id="confidence-fill" cx="60" cy="60" r="50" 
+                                        style="stroke-dashoffset: 314;"></circle>
+                            </svg>
+                            <div class="confidence-text">
+                                <span id="confidence-percentage" class="percentage">92%</span>
+                                <p>Confidence</p>
+                            </div>
+                        </div>
+
+                        <p id="prediction-message" class="prediction-message">
+                            This job posting appears to be REAL with high confidence.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Key Indicators Card -->
+                <div class="result-card">
+                    <div class="indicators-header">
+                        <h3>🚨 Key Indicators</h3>
+                    </div>
+                    
+                    <div class="indicators-list" id="indicators-list">
+                        <div class="indicator fake">
+                            <span class="icon">⚠️</span>
+                            <span class="text">"No experience needed"</span>
+                        </div>
+                        <div class="indicator fake">
+                            <span class="icon">⚠️</span>
+                            <span class="text">"Work from home" (suspicious context)</span>
+                        </div>
+                        <div class="indicator real">
+                            <span class="icon">✅</span>
+                            <span class="text">Company logo present</span>
+                        </div>
+                        <div class="indicator real">
+                            <span class="icon">✅</span>
+                            <span class="text">Realistic salary range</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <button id="back-btn" class="back-button">← Back to Home</button>
+        </section>
+
+        <!-- Sign In Section -->
+        <section id="signin" class="signin-section">
+            <div class="signin-container">
+                <h2 id="form-title">Sign In</h2>
+                <form class="signin-form" id="signin-form">
+                    <div class="form-group" id="name-group" style="display: none;">
+                        <label for="fullname">Full Name:</label>
+                        <input type="text" id="fullname" name="fullname">
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email:</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Password:</label>
+                        <input type="password" id="password" name="password" required>
+                    </div>
+                    <button type="submit" class="signin-submit-btn" id="form-submit-btn">Sign In</button>
+                    <p class="signin-help"><span id="toggle-text">Don't have an account?</span> <a href="javascript:toggleAuthMode()" id="toggle-link">Create one</a></p>
+                </form>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section id="about" class="about-section">
+            <div class="about-content">
+                <h2>About JobVision</h2>
+                <p>JobVision is an AI-powered fake job detector that uses machine learning and natural language processing to identify fraudulent job postings in real-time.</p>
+                
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <h3>🤖 ML-Powered</h3>
+                        <p>Uses Logistic Regression with TF-IDF vectorization for fast, accurate predictions</p>
+                    </div>
+                    <div class="feature-card">
+                        <h3>⚡ Instant Results</h3>
+                        <p>Get predictions in milliseconds, not minutes</p>
+                    </div>
+                    <div class="feature-card">
+                        <h3>🔍 Explainable</h3>
+                        <p>Understand why a job posting is flagged as suspicious</p>
+                    </div>
+                    <div class="feature-card">
+                        <h3>📊 High Accuracy</h3>
+                        <p>Trained on thousands of real and fake job postings</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Loading Spinner -->
+    <div class="spinner hidden" id="spinner"></div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>&copy; 2025 JobVision. Protect yourself from job scams. | Built with ❤️ and ML</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
